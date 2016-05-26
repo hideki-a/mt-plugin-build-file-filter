@@ -1,0 +1,6 @@
+id: BuildFileFilter
+name: BuildFileFilter
+version: 1.0.0
+
+callbacks:
+    build_file_filter: $BuildFileFilter::BuildFileFilter::Plugin::build_file_filter
