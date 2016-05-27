@@ -1,4 +1,4 @@
-package BuildFileFilter::Plugin;
+package BuildFileFilter::Callbacks;
 use strict;
 use CustomFields::Util qw( get_meta );
 use MT::FileMgr;
