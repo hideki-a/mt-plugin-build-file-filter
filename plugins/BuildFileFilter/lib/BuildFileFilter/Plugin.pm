@@ -6,7 +6,7 @@ use CustomFields::Util qw( get_meta );
 # $args{ArchiveType}
 # ‘index’, ‘Individual’, ‘Page’, ‘Category’, ‘Daily’, ‘Monthly’, or ‘Weekly’
 
-sub build_file_filter {
+sub _build_file_filter {
     my ($cb, %args) = @_;
 
     # By Entry authored_on Data
