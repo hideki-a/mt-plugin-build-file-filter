@@ -15,6 +15,10 @@ sub _build_file_filter {
         return 1 if $args{ArchiveType} ne 'Individual';
 
         if ($args{Entry}->authored_on + 0 < 20160101000000) {
+            if ( MT->config('RebuildFilterDeleteFile')) {
+                _delete_file($args{File});
+            }
+
             return 0; # Don't publish.
         }
     }
@@ -25,7 +29,7 @@ sub _build_file_filter {
 
         my $meta = get_meta($args{Entry});
 
-        if ($meta->{ entry_no_publish }) {
+        if ($meta->{ entry_no_publish }) {    # $meta->{ customfield_basename }
             if ( MT->config('RebuildFilterDeleteFile')) {
                 _delete_file($args{File});
             }
