@@ -38,6 +38,32 @@ sub _build_file_filter {
         }
     }
 
+    # By Monthly Archive PeriodStart
+    if ($args{Blog}->id == 4) {
+        return 1 if $args{ArchiveType} ne 'Monthly';
+
+        my ($sec, $min, $hour, $day, $month, $year, $wday, $yday, $isdst) = localtime(time);
+        $year += 1900;
+        $month += 1;
+
+        if ($month < 12) {
+            $month += 1;
+        } else {
+            $year += 1;
+            $month = 1;
+        }
+
+        my $next_month = sprintf "%4d%02d01000000", $year, $month;
+
+        if ($args{PeriodStart} + 0 >= $next_month) {
+            if ( MT->config('RebuildFilterDeleteFile')) {
+                _delete_file($args{File});
+            }
+
+            return 0; # Don't publish.
+        }
+    }
+
     return 1;
 }
 
