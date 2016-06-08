@@ -64,6 +64,23 @@ sub _build_file_filter {
         }
     }
 
+    # Exists Multiple Individual Templates.
+    if ($args{Blog}->id == 25) {
+        return 1 if $args{ArchiveType} ne 'Individual';
+
+        if ($args{FileInfo}->url =~ /\.\.\/something_dir/) {
+            my $meta = get_meta($args{Entry});
+
+            if ($meta->{ entry_field_basename } eq '') {
+                if ( MT->config('RebuildFilterDeleteFile')) {
+                    _delete_file($args{File});
+                }
+
+                return 0; # Don't publish.
+            }
+        }
+    }
+
     return 1;
 }
 
